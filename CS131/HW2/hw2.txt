@@ -1,0 +1,52 @@
+For this assignment, I first started by implementing the make_matcher function
+ as I was following the step by step instructions given in the assignment website.
+As I continued implementing rest of the functions, I noticed that the make_matcher function 
+actually gave me a solid foundation on how to work with grammars. The goal of 
+make_matcher was to determine whether a given input fragment could be matched 
+by the grammar. While writing it, I had to implement recursive functions 
+that handled terminal symbol and non-terminal symbols, then implemented backtracking 
+through the grammar rules.
+
+Once I finished working on implementing the make_matcher, I then began implementing 
+the make_parser function that used similar structure as the make_matcher. Even though 
+make_matcher and make_parser did different things, where the make_parser returned a 
+full parsed tree, and the make_matcher only checked for a match on fragments, they 
+both follow similar recursive structure pattern during the implementation. Because 
+of this reason, I chose to write make_parser in terms of the structure used in 
+make_matcher. I did not call the same functions in make_parser which I wrote in 
+make_matcher, instead I used the same logic and rewrote the helper functions to 
+handle building the tree.
+
+Both of these function use double recursion functions to process the rules 
+and the different symbols. In make_matcher, the helper functions calls acceptors 
+to check whether the remaining fragment is valid. In the make_parser, the similar 
+helper functions are used where they also build up a parse tree. This addition 
+requires adding new arguments such as subtree list to build up the tree structure 
+during parsing.
+
+Some fixes that can be implemented in the code is the issue of the duplication
+ of the codes can be unorganized and confusing, but since this assignment doesn’t
+ have too many functions that needed to be implemented, I decided to write the
+ individual helper functions separately for each make_matcher and make_parser
+ functions. Additionally, both of the functions only return the first ever
+ successful match they find, where they do not try to explore any alternative
+ possible rule combinations.
+
+One major weakness in both make_matcher and make_parser is that they cannot
+handle certain tricky grammar rules, specifically when those rules are recursive.
+For example, if a nonterminal "A" is defined interms of itself such as 
+"A -> A ...", or like "A -> B" and "B -> A", then the function will keep
+calling each other over and over again without ever reaching a terminal symbol.
+This causes  a infinite loop that produces no result. This happens because
+the parser always tries to expand the first rule it sees without checking rest. 
+With simpler grammars this isn't really a problem, however as we get more complicated grammars, it can 
+become a problem. Additionally, since the function uses double recursion,
+this means that the function calls build on top of each other, which can eventually
+slow things down or even crash if the recursion goes in too deep. To fix such issues, 
+or to make it even more efficient, it could be helpful to add logic that avoids
+infinite loops from happening. 
+
+In the end, the make_parser was implemented based on how I implemented make_matcher
+ with some additional code to construct the parse tree. Even though this leads
+to duplication of the code, it still keeps the two functions clear based on 
+what they are supposed to do. 

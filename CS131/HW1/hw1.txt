@@ -1,0 +1,29 @@
+1. subset: I read through OCaml documentation for Lists and found List.mem, which checks if a value is in a list. 
+Then I split a into head and tail, recursively checked if the head was in list b.
+
+2. equal_sets: I checked if the sets are equal to each other, making sure a is subset of b, and b is subset of a.
+
+3. set_union: I read through the OCaml documentation and found List.merge, which let me combine two lists.
+
+4. set_all_union: I used recusrion to split the list into head and tail, then combined them using set_union.
+
+5. Russell's Paradox: Cannot be written in OCaml. Explained in the hw1.ml.
+
+6. computed_fixed_point: I followed the prompt and recursively applied f to x and checked if equal to x.
+
+7. computed_periodic_point: I wrote a helper function to apply f to x, p times. Then used that and fixed point 
+function to cehck if equal to original input, if not, then recursively called (f x)
+
+8. whileseq: I followed the prompt where it returns [] if (p x) is false. If true, it recursively calls itself with s x,
+adding x to the list until p fails. 
+
+9. Blind Alley: I first tried to understand how Blind Alley worked and walked through the sample cases by hand and took
+notes of the steps I took for each process of removing Blind Alley. Since I had taken LING 185A, which used Haskell, 
+I had some prior experience with functional programming and similar logic. I then began writing several helper functions 
+for the steps taken to support main function: 
+a. rhs_terminable : goes through the whole list and checks if RHS of a rule can be fully reduced to terminals.
+b. build_terminable_list : goes through each rule and adds the LHS to the terminable list if it passes rhs_terminable.
+c. build_terminable_rule : wraps the rules with the terminable list as a pair.
+d. filter_terminable : filters and keeps only the rules whose RHS are terminable.
+e. filter_blind_alleys : uses computed_fixed_point function to repeatedly apply build_terminable_rule, then filter the 
+grammar to remove the blind alley rules. 
